@@ -18,14 +18,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <com.google.android.material.textview.MaterialTextView
+    <ImageView
         android:id="@+id/cocktail_photo_detail"
         style="@style/description_display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Photo"
-        app:layout_constraintTop_toBottomOf="@id/cocktail_name_detail">
-    </com.google.android.material.textview.MaterialTextView>
+        app:layout_constraintTop_toBottomOf="@id/cocktail_name_detail"
+        app:srcCompat="@drawable/image_not_load"
+        >
+    </ImageView>
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/cocktail_category_detail"
         style="@style/description_display"
