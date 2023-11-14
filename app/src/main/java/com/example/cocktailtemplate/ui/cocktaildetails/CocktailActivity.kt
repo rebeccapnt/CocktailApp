@@ -1,4 +1,4 @@
-package ui.cocktaildetails
+package com.example.cocktailtemplate.ui.cocktaildetails
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

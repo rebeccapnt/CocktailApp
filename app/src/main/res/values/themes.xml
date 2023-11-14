@@ -6,4 +6,28 @@
     </style>
 
     <style name="Theme.CocktailTemplate" parent="Base.Theme.CocktailTemplate" />
+
+        <style name="text_input" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <item name="android:layout_margin">8dp</item>
+        </style>
+        <style name="button">
+            <item name="android:layout_margin">8dp</item>
+            <item name="android:gravity">center</item>
+        </style>
+        <style name="description_display" parent="@style/TextAppearance.MaterialComponents.Body1">
+            <item name="android:layout_margin">8dp</item>
+            <item name="android:gravity">center</item>
+            <item name="android:layout_height">40dp</item>
+            <item name="android:textSize">15sp</item>
+        </style>
+        <style name="title_display" parent="@style/TextAppearance.MaterialComponents.Body1">
+            <item name="android:layout_margin">8dp</item>
+            <item name="android:gravity">center</item>
+            <item name="android:layout_height">40dp</item>
+            <item name="android:textSize">20sp</item>
+            <item name="android:textStyle">bold</item>
+        </style>
+        <style name="screen_layout_margin">
+            <item name="android:layout_margin">12dp</item>
+        </style>
 </resources>

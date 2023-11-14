@@ -1,0 +1,83 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.cocktaildetails.CocktailDetail">
+
+    <!-- TODO: Update blank fragment layout -->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/cocktail_name_detail"
+        style="@style/title_display"
+        android:background="#A8A8A8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cocktail name"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="100sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/cocktail_photo_detail"
+        style="@style/description_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Photo"
+        app:layout_constraintTop_toBottomOf="@id/cocktail_name_detail">
+    </com.google.android.material.textview.MaterialTextView>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/cocktail_category_detail"
+        style="@style/description_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Category: Cocktail"
+        android:background="#A8A8A8"
+        app:layout_constraintTop_toBottomOf="@id/cocktail_photo_detail">
+    </com.google.android.material.textview.MaterialTextView>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/cocktail_glass_detail"
+        style="@style/description_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Served in: Glass"
+        android:background=" 	#A8A8A8"
+        app:layout_constraintTop_toBottomOf="@id/cocktail_category_detail">
+    </com.google.android.material.textview.MaterialTextView>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/cocktail_instruction_title_detail"
+        style="@style/description_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Instructions"
+        android:background=" 	#A8A8A8"
+        app:layout_constraintTop_toBottomOf="@id/cocktail_category_detail">
+    </com.google.android.material.textview.MaterialTextView>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/cocktail_instruction_detail"
+        style="@style/description_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Instructions"
+        app:layout_constraintTop_toBottomOf="@id/cocktail_instruction_title_detail">
+    </com.google.android.material.textview.MaterialTextView>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/cocktail_ingredients_title_detail"
+        style="@style/description_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ingredients"
+        android:background=" 	#A8A8A8"
+        app:layout_constraintTop_toBottomOf="@id/cocktail_instruction_detail">
+    </com.google.android.material.textview.MaterialTextView>
+
+<com.google.android.material.textview.MaterialTextView
+    android:id="@+id/cocktail_ingredients_detail"
+    style="@style/description_display"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Instructions\n-Ingrédients 1 \n ingrédients 2"
+    app:layout_constraintTop_toBottomOf="@id/cocktail_ingredients_title_detail">
+
+</com.google.android.material.textview.MaterialTextView>
+</androidx.constraintlayout.widget.ConstraintLayout>

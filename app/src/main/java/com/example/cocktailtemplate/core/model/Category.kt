@@ -1,4 +1,4 @@
-package core.model
+package com.example.cocktailtemplate.core.model
 
 class Category {
 

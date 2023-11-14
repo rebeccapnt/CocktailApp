@@ -1,6 +1,6 @@
-package core.service
+package com.example.cocktailtemplate.core.service
 
-import core.model.Category
+import com.example.cocktailtemplate.core.model.Category
 
 class CategoriesFetcher {
 
