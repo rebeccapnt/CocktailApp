@@ -6,4 +6,7 @@
     <string name="cocktail_glass">Served in:</string>
     <string name="cocktail_instructions">Instructions:</string>
     <string name="cocktail_ingredients">Ingredients:</string>
+    <string name="recherche_tab">Recherche</string>
+    <string name="categories_tab">Catégories</string>
+    <string name="ingredients_tab">Ingrédients</string>
 </resources>
