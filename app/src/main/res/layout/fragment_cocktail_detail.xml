@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.cocktaildetails.CocktailDetail">
 
-    <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:id="@+id/cocktail_photo_detail"
         style="@style/description_display"
