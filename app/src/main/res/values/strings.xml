@@ -2,5 +2,8 @@
     <string name="app_name">CocktailTemplate</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="cocktail_category">Category:</string>
+    <string name="cocktail_glass">Served in:</string>
+    <string name="cocktail_instructions">Instructions:</string>
+    <string name="cocktail_ingredients">Ingredients:</string>
 </resources>

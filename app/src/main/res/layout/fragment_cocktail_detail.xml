@@ -36,7 +36,7 @@
                 style="@style/description_display"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Category: "
+                android:text="@string/cocktail_category"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/cocktail_photo_detail" />
 
@@ -68,7 +68,7 @@
                 style="@style/description_display"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Served in:"
+                android:text="@string/cocktail_glass"
                 android:textStyle="bold"
                 />
             <com.google.android.material.textview.MaterialTextView
@@ -100,7 +100,7 @@
                 style="@style/description_display"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Instructions"
+                android:text="@string/cocktail_instructions"
                 android:textStyle="bold" />
 
             <!-- Ligne horizontale en tant que séparateur -->
@@ -142,7 +142,7 @@
                 style="@style/description_display"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ingredients"
+                android:text="@string/cocktail_ingredients"
                 android:textStyle="bold" />
 
             <com.google.android.material.divider.MaterialDivider
