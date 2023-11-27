@@ -2,10 +2,6 @@ package com.example.cocktailtemplate.core.service
 
 import android.util.Log
 import com.example.cocktailtemplate.core.model.ApiResponse
-import com.example.cocktailtemplate.core.model.Category
-import com.example.cocktailtemplate.core.model.Cocktail
-import com.example.cocktailtemplate.core.model.CocktailList
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import okhttp3.Call
@@ -16,20 +12,19 @@ import okhttp3.Response
 import okio.IOException
 import java.lang.reflect.Type
 import java.net.URL
-import java.text.CollationKey
 
 class Fetcher {
 
     companion object {
 
         public val client = OkHttpClient()
-        public const val rootUrl = "https://www.thecocktaildb.com/api/json/v1/1/"
-        inline fun <reified T> fetchDetail(
+        public const val ROOT_URL = "https://www.thecocktaildb.com/api/json/v1/1/"
+        inline fun <reified T> fetch(
             detailEndPoint: String,
             crossinline success: (ApiResponse<T>) -> Unit,
             crossinline failure: (Error) -> Unit
         ) {
-            val url = URL(rootUrl + detailEndPoint)
+            val url = URL(ROOT_URL + detailEndPoint)
             val request = Request.Builder().url(url).build()
 
             client.newCall(request).enqueue(object : Callback {

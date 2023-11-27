@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.cocktailtemplate.core.model.ApiResponse
+import com.example.cocktailtemplate.core.model.Cocktail
+import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -47,13 +50,31 @@ class CocktailDetail : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Picasso.get()
-            .load("https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg")
-            .placeholder(binding.cocktailPhotoDetail.drawable)
-            .error(binding.cocktailPhotoDetail.drawable)
-            .into(binding.cocktailPhotoDetail)
+        Fetcher.fetch("lookup.php?i=11001", success = ::onSuccess, failure = ::onError)
     }
 
+    private fun onSuccess(cocktails : ApiResponse<Cocktail>) {
+        val cocktail = cocktails.list.get(0)
+        Log.i("Detail", "Get the following cocktail : ${cocktail.name}")
+        requireActivity().runOnUiThread {
+            Picasso.get()
+                .load(cocktail.thumb)
+                .placeholder(binding.cocktailPhotoDetail.drawable)
+                .error(binding.cocktailPhotoDetail.drawable)
+                .into(binding.cocktailPhotoDetail)
+            binding.cocktailCategoryValue.text = cocktail.category
+            binding.cocktailGlassValue.text = cocktail.glass
+            binding.cocktailInstructionDetail.text = cocktail.instructions
+            var ingredients = ""
+            for (ingredient in cocktail.getIngredients()){
+                ingredients += "- $ingredient\n"
+            }
+            binding.cocktailIngredientsDetail.text = ingredients
+        }
+    }
+    private fun onError(error: Error) {
+        Log.e("Detail", "Error: ${error.message}")
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
