@@ -1,6 +1,12 @@
 package com.example.cocktailtemplate.core.model
 
-class Category {
+import com.google.gson.annotations.SerializedName
 
-    val uid: String? = null;
+class Category {
+    @SerializedName("strCategory")
+    val name: String? = null
+
+    public fun getItem(): Item {
+        return Item(name)
+    }
 }
