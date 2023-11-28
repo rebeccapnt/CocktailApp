@@ -9,4 +9,5 @@
     <string name="recherche_tab">Recherche</string>
     <string name="categories_tab">Catégories</string>
     <string name="ingredients_tab">Ingrédients</string>
+    <string name="search_view_placeholder">Rechercher...</string>
 </resources>

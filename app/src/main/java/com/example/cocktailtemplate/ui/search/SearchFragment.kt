@@ -52,10 +52,9 @@ class SearchFragment : Fragment() {
     private fun onSuccess(cocktails : ApiResponse<Cocktail>) {
         val name = cocktails.list.get(0).name
         Log.i("Detail", "Get the following cocktail : $name")
-        requireActivity().runOnUiThread {
-            binding.textSearch.text = name
-        }
+
     }
+
     private fun onError(error: Error) {
         Log.e("Detail", "Error: ${error.message}")
     }
