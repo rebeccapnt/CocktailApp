@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.Item
+import com.example.cocktailtemplate.databinding.FragmentCategoriesBinding
+import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
 import com.example.cocktailtemplate.ui.common.GenericAdapter
 
 class CategoriesFragment : Fragment() {
-
+    private var _binding: FragmentCategoriesBinding? = null
+    private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: GenericAdapter
 
@@ -33,14 +36,21 @@ class CategoriesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
+        val rootView = binding.root
+
         val view = inflater.inflate(R.layout.fragment_categories, container, false)
 
-        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         adapter = GenericAdapter(requireContext(), categories)
         recyclerView.adapter = adapter
+        return rootView
+    }
 
-        return view
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
