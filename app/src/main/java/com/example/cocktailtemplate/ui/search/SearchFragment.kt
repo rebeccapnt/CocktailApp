@@ -1,17 +1,20 @@
 package com.example.cocktailtemplate.ui.search
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.cocktailtemplate.R
+import com.example.cocktailtemplate.core.model.ApiResponse
+import com.example.cocktailtemplate.core.model.Cocktail
+import com.example.cocktailtemplate.core.service.Fetcher
+import com.example.cocktailtemplate.databinding.FragmentSearchBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
 /**
  * A simple [Fragment] subclass.
  * Use the [SearchFragment.newInstance] factory method to
@@ -21,7 +24,8 @@ class SearchFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,9 +39,31 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false
+        )
+        val rootView = binding.root
+        return rootView
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Fetcher.fetch("lookup.php?i=11001", success = ::onSuccess, failure = ::onError)
     }
 
+    private fun onSuccess(cocktails : ApiResponse<Cocktail>) {
+        val name = cocktails.list.get(0).name
+        Log.i("Detail", "Get the following cocktail : $name")
+        requireActivity().runOnUiThread {
+            binding.textSearch.text = name
+        }
+    }
+    private fun onError(error: Error) {
+        Log.e("Detail", "Error: ${error.message}")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

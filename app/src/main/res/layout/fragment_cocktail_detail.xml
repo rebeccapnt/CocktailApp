@@ -157,7 +157,8 @@
                 style="@style/description_display"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="- Ingrédients 0 \n- Ingrédients 1 \n- Ingrédients 2" />
+                android:text="- Ingrédients 0 \n- Ingrédients 1 \n- Ingrédients 2"
+                />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
