@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.navArgs
 import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import androidx.navigation.fragment.navArgs
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +32,7 @@ class CocktailDetail : Fragment() {
     private var param2: String? = null
     private var _binding: FragmentCocktailDetailBinding? = null
     private val binding get() = _binding!!
+    private val args : CocktailDetailArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +54,7 @@ class CocktailDetail : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Fetcher.fetch("lookup.php?i=11001", success = ::onSuccess, failure = ::onError)
+        Fetcher.fetch("lookup.php?i=${args.cocktailId}", success = ::onSuccess, failure = ::onError)
     }
 
     private fun onSuccess(cocktails : ApiResponse<Cocktail>) {

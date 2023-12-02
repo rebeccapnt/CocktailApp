@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailtemplate.core.model.ApiResponse
@@ -67,6 +68,10 @@ class SearchFragment : Fragment() {
                 recyclerView.visibility = View.GONE
                 binding.errorLayout.visibility = View.VISIBLE
             }
+            val id = 11001
+
+            val action = SearchFragmentDirections.actionNavSearchToNavDetail(id)
+            searchView.findNavController().navigate(action)
         }
     }
 
