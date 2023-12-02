@@ -62,21 +62,18 @@ class SearchFragment : Fragment() {
                 binding.errorLayout.visibility = View.GONE
 
                 recyclerView.layoutManager = LinearLayoutManager(context)
-                adapter = SearchAdapter(requireContext(), cocktails.list)
+                adapter = SearchAdapter(requireContext(), cocktails.list, onClickListener = ::goToCocktailDetail)
                 recyclerView.adapter = adapter
             } else {
                 recyclerView.visibility = View.GONE
                 binding.errorLayout.visibility = View.VISIBLE
             }
-            val id = 11001
-
-            val action = SearchFragmentDirections.actionNavSearchToNavDetail(id)
-            searchView.findNavController().navigate(action)
         }
     }
-
-
-
+    private fun goToCocktailDetail(cocktailId : Int) {
+        val action = SearchFragmentDirections.actionNavSearchToNavDetail(cocktailId)
+        searchView.findNavController().navigate(action)
+    }
     private fun onError(error: Error) {
         Log.e("Search", "Error: ${error.message}")
     }

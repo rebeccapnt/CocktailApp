@@ -1,6 +1,7 @@
 package com.example.cocktailtemplate.ui.search
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.squareup.picasso.Picasso
 
-class SearchAdapter(val context: Context, private val cocktails: List<Cocktail>) :
+class SearchAdapter(val context: Context, private val cocktails: List<Cocktail>, private val onClickListener: (cocktailId: Int) -> Unit) :
     RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -31,7 +32,12 @@ class SearchAdapter(val context: Context, private val cocktails: List<Cocktail>)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.i("Search", "onBindViewHolder")
         val cocktail = cocktails[position]
+        holder.itemView.setOnClickListener {
+            Log.i("Search", "click ${cocktail.id}")
+            cocktail.id?.let { it1 -> onClickListener(it1.toInt()) }
+        }
         holder.cocktailName.text = cocktail.name
         Picasso.get()
             .load(cocktail.thumb)
@@ -39,4 +45,5 @@ class SearchAdapter(val context: Context, private val cocktails: List<Cocktail>)
             .error(R.drawable.image_not_load)
             .into(holder.cocktailImage)
     }
+
 }
