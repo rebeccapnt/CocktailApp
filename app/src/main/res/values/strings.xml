@@ -11,4 +11,5 @@
     <string name="ingredients_tab">Ingrédients</string>
     <string name="search_view_placeholder">Rechercher...</string>
     <string name="no_cocktail_found">Aucun cocktail trouvé...</string>
+    <string name="cocktail_name">{cocktailName}</string>
 </resources>

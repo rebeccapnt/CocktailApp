@@ -19,7 +19,9 @@
             android:layout_height="match_parent"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:layout_collapseMode="pin" />
+            app:layout_collapseMode="pin"
+            app:titleCentered="true"
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
 import com.example.cocktailtemplate.core.model.ApiResponse
@@ -15,6 +16,7 @@ import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import androidx.navigation.fragment.navArgs
+import com.example.cocktailtemplate.MainActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +63,7 @@ class CocktailDetail : Fragment() {
         val cocktail = cocktails.list.get(0)
         Log.i("Detail", "Get the following cocktail : ${cocktail.name}")
         requireActivity().runOnUiThread {
+            cocktail.name?.let { (requireActivity() as MainActivity).updateTitle(it) }
             Picasso.get()
                 .load(cocktail.thumb)
                 .placeholder(binding.cocktailPhotoDetail.drawable)
@@ -76,6 +79,7 @@ class CocktailDetail : Fragment() {
             binding.cocktailIngredientsDetail.text = ingredients
         }
     }
+
     private fun onError(error: Error) {
         Log.e("Detail", "Error: ${error.message}")
     }

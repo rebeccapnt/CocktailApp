@@ -1,6 +1,9 @@
 package com.example.cocktailtemplate
 
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -33,6 +36,9 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setupWithNavController(navController)
     }
 
+    fun updateTitle(title: String) {
+        binding.toolbar.title = title
+    }
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null) || super.onSupportNavigateUp()
     }

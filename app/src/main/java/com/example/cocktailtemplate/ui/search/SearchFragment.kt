@@ -70,7 +70,7 @@ class SearchFragment : Fragment() {
             }
         }
     }
-    private fun goToCocktailDetail(cocktailId : Int) {
+    private fun goToCocktailDetail(cocktailId: Int) {
         val action = SearchFragmentDirections.actionNavSearchToNavDetail(cocktailId)
         searchView.findNavController().navigate(action)
     }
