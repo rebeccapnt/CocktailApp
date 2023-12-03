@@ -34,7 +34,7 @@ class SearchAdapter(val context: Context, private val cocktails: List<Cocktail>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.i("Search", "onBindViewHolder")
         val cocktail = cocktails[position]
-        holder.itemView.setOnClickListener {
+        holder.cocktailContainer.setOnClickListener {
             Log.i("Search", "click ${cocktail.id}")
             cocktail.id?.let { it1 -> onClickListener(it1.toInt()) }
         }
