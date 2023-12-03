@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailtemplate.core.model.ApiResponse
@@ -61,7 +62,7 @@ class SearchFragment : Fragment() {
                 binding.errorLayout.visibility = View.GONE
 
                 recyclerView.layoutManager = LinearLayoutManager(context)
-                adapter = SearchAdapter(requireContext(), cocktails.list)
+                adapter = SearchAdapter(requireContext(), cocktails.list, onClickListener = ::goToCocktailDetail)
                 recyclerView.adapter = adapter
             } else {
                 recyclerView.visibility = View.GONE
@@ -69,9 +70,10 @@ class SearchFragment : Fragment() {
             }
         }
     }
-
-
-
+    private fun goToCocktailDetail(cocktailId: Int) {
+        val action = SearchFragmentDirections.actionNavSearchToNavDetail(cocktailId)
+        searchView.findNavController().navigate(action)
+    }
     private fun onError(error: Error) {
         Log.e("Search", "Error: ${error.message}")
     }
