@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailtemplate.R
@@ -21,6 +22,7 @@ import com.squareup.picasso.Picasso
 
 class CategoriesFragment : Fragment() {
     private var _binding: FragmentCategoriesBinding? = null
+    private lateinit var rootView: View
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: GenericAdapter
@@ -30,9 +32,7 @@ class CategoriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
-        val rootView = binding.root
-
-        val view = inflater.inflate(R.layout.fragment_categories, container, false)
+        rootView = binding.root
 
         Fetcher.fetch("list.php?c=list", success = ::onSuccess, failure = ::onError)
 
@@ -48,10 +48,16 @@ class CategoriesFragment : Fragment() {
         requireActivity().runOnUiThread {
             recyclerView = binding.recyclerView
             recyclerView.layoutManager = LinearLayoutManager(context)
-            adapter = GenericAdapter(requireContext(), categoryItems)
+            adapter = GenericAdapter(requireContext(), categoryItems, onClickListener = ::goToCocktailList)
             recyclerView.adapter = adapter
         }
     }
+
+    private fun goToCocktailList(name: String) {
+        val action = CategoriesFragmentDirections.actionNavCategoriesToNavCocktailList("filter.php?c=$name")
+        rootView.findNavController().navigate(action)
+    }
+
 
     private fun onError(error: Error) {
         Log.e("Categories", "Error: ${error.message}")

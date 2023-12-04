@@ -21,13 +21,21 @@
         android:id="@+id/nav_categories"
         android:name="com.example.cocktailtemplate.ui.categories.CategoriesFragment"
         android:label="@string/categories_tab"
-        tools:layout="@layout/fragment_categories" />
+        tools:layout="@layout/fragment_categories" >
+        <action
+            android:id="@+id/action_nav_categories_to_nav_cocktail_list"
+            app:destination="@id/nav_cocktail_list" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_ingredients"
         android:name="com.example.cocktailtemplate.ui.ingredients.IngredientsFragment"
         android:label="@string/ingredients_tab"
-        tools:layout="@layout/fragment_ingredients" />
+        tools:layout="@layout/fragment_ingredients" >
+        <action
+            android:id="@+id/action_nav_ingredients_to_nav_cocktail_list"
+            app:destination="@id/nav_cocktail_list" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_detail"
@@ -47,6 +55,9 @@
         <action
             android:id="@+id/action_nav_cocktail_list_to_nav_detail"
             app:destination="@id/nav_detail" />
+        <argument
+            android:name="endPoint"
+            app:argType="string" />
     </fragment>
 
 </navigation>

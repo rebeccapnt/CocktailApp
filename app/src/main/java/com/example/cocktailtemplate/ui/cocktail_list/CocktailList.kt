@@ -39,6 +39,7 @@ class CocktailList : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SearchAdapter
     private lateinit var cocktailListView: View
+    private val args : CocktailListArgs by navArgs()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +63,7 @@ class CocktailList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Fetcher.fetch("filter.php?c=Cocktail", success = ::onSuccess, failure = ::onError)
+        Fetcher.fetch(args.endPoint, success = ::onSuccess, failure = ::onError)
     }
 
     private fun onSuccess(cocktails: ApiResponse<Cocktail>) {

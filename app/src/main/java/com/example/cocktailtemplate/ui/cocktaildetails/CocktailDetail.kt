@@ -50,6 +50,7 @@ class CocktailDetail : Fragment() {
     ): View? {
         // Inflate the layout for this fragment and update the image
         _binding = FragmentCocktailDetailBinding.inflate(inflater, container, false)
+            
         val rootView = binding.root
         return rootView
     }

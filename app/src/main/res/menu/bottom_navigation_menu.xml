@@ -5,7 +5,7 @@
         android:icon="@drawable/ic_search"
         android:title="@string/recherche_tab"  />
     <item
-        android:id="@+id/nav_cocktail_list"
+        android:id="@+id/nav_categories"
         android:icon="@drawable/ic_wine_bar"
         android:title="@string/categories_tab" />
     <item
