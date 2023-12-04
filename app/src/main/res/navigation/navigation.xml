@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_categories"
-        android:name="com.example.cocktailtemplate.ui.categories.CategoriesFragment"
+        android:name="com.example.cocktailtemplate.ui.cocktail_list.CocktailList"
         android:label="@string/categories_tab"
         tools:layout="@layout/fragment_categories" />
 
