@@ -9,12 +9,14 @@
         android:id="@+id/searchCocktail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:queryHint="@string/search_view_placeholder"
         android:iconifiedByDefault="false">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"/>
 
     </androidx.appcompat.widget.SearchView>
 

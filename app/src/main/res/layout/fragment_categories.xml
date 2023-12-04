@@ -5,6 +5,34 @@
     android:orientation="vertical"
     tools:context=".ui.categories.CategoriesFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="#F8EBD0"
+        android:elevation="8dp">
+
+        <ImageView
+            android:id="@+id/imageLeft"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/ic_tintin_milou_categories"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="#2C0F00"
+            android:text="Rechercher un cocktail par catégorie"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
