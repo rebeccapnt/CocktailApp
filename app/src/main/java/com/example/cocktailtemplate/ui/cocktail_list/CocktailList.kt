@@ -11,15 +11,11 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailtemplate.MainActivity
-import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
-import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
 import com.example.cocktailtemplate.databinding.FragmentCocktailListBinding
-import com.example.cocktailtemplate.ui.cocktaildetails.CocktailDetailArgs
-import com.example.cocktailtemplate.ui.search.SearchAdapter
-import com.example.cocktailtemplate.ui.search.SearchFragmentDirections
+import com.example.cocktailtemplate.ui.common.CocktailListAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,7 +34,7 @@ class CocktailList : Fragment() {
     private var _binding: FragmentCocktailListBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: SearchAdapter
+    private lateinit var adapter: CocktailListAdapter
     private lateinit var cocktailListView: View
     private val args : CocktailListArgs by navArgs()
 
@@ -75,7 +71,7 @@ class CocktailList : Fragment() {
                 recyclerView.visibility = View.VISIBLE
 
                 recyclerView.layoutManager = LinearLayoutManager(context)
-                adapter = SearchAdapter(requireContext(), cocktails.list, onClickListener = ::goToCocktailDetail)
+                adapter = CocktailListAdapter(requireContext(), cocktails.list, onClickListener = ::goToCocktailDetail)
                 recyclerView.adapter = adapter
             } else {
                 recyclerView.visibility = View.GONE

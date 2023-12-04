@@ -1,4 +1,4 @@
-package com.example.cocktailtemplate.ui.search
+package com.example.cocktailtemplate.ui.common
 
 import android.content.Context
 import android.util.Log
@@ -13,8 +13,8 @@ import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.squareup.picasso.Picasso
 
-class SearchAdapter(val context: Context, private val cocktails: List<Cocktail>, private val onClickListener: (cocktailId: Int) -> Unit) :
-    RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+class CocktailListAdapter(val context: Context, private val cocktails: List<Cocktail>, private val onClickListener: (cocktailId: Int) -> Unit) :
+    RecyclerView.Adapter<CocktailListAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cocktailContainer: RelativeLayout = view.findViewById(R.id.cocktailContainer)
