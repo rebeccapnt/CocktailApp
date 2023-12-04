@@ -1,6 +1,7 @@
 package com.example.cocktailtemplate.ui.common
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.Item
 
-class GenericAdapter(val context: Context, private val items: List<Item>) :
+class GenericAdapter(val context: Context, private val items: List<Item>, private val onClickListener: (name: String) -> Unit) :
     RecyclerView.Adapter<GenericAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -30,5 +31,9 @@ class GenericAdapter(val context: Context, private val items: List<Item>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.itemTextView.text = item.name
+        holder.itemContainer.setOnClickListener {
+            Log.i("Search", "click ${item.name}")
+            item.name?.let { it1 -> onClickListener(it1) }
+        }
     }
 }

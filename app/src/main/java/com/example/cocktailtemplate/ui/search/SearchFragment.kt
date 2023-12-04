@@ -15,12 +15,13 @@ import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentSearchBinding
+import com.example.cocktailtemplate.ui.common.CocktailListAdapter
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: SearchAdapter
+    private lateinit var adapter: CocktailListAdapter
     private lateinit var searchList: ArrayList<Cocktail>
     private lateinit var errorMessage: TextView
     private lateinit var searchView: SearchView
@@ -62,7 +63,7 @@ class SearchFragment : Fragment() {
                 binding.errorLayout.visibility = View.GONE
 
                 recyclerView.layoutManager = LinearLayoutManager(context)
-                adapter = SearchAdapter(requireContext(), cocktails.list, onClickListener = ::goToCocktailDetail)
+                adapter = CocktailListAdapter(requireContext(), cocktails.list, onClickListener = ::goToCocktailDetail)
                 recyclerView.adapter = adapter
             } else {
                 recyclerView.visibility = View.GONE

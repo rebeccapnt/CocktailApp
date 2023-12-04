@@ -5,7 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailtemplate.R
@@ -16,12 +19,15 @@ import com.example.cocktailtemplate.core.model.Item
 import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
 import com.example.cocktailtemplate.databinding.FragmentIngredientsBinding
+import com.example.cocktailtemplate.ui.categories.CategoriesFragmentDirections
 import com.example.cocktailtemplate.ui.common.GenericAdapter
+import com.example.cocktailtemplate.ui.search.SearchFragmentDirections
 
 class IngredientsFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: GenericAdapter
+    private lateinit var rootView: View
     private var _binding: FragmentIngredientsBinding? = null
     private val binding get() = _binding!!
 
@@ -31,8 +37,7 @@ class IngredientsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentIngredientsBinding.inflate(inflater, container, false)
-        val rootView = binding.root
-        val view = inflater.inflate(R.layout.fragment_categories, container, false)
+        rootView = binding.root
 
         Fetcher.fetch("list.php?i=list", success = ::onSuccess, failure = ::onError)
 
@@ -48,9 +53,14 @@ class IngredientsFragment : Fragment() {
         requireActivity().runOnUiThread {
             recyclerView = binding.recyclerView
             recyclerView.layoutManager = LinearLayoutManager(context)
-            adapter = GenericAdapter(requireContext(), ingredientItems)
+            adapter = GenericAdapter(requireContext(), ingredientItems, onClickListener =::goToCocktailList)
             recyclerView.adapter = adapter
         }
+    }
+
+    private fun goToCocktailList(name: String) {
+        val action = IngredientsFragmentDirections.actionNavIngredientsToNavCocktailList("filter.php?i=$name", requireContext().getString(R.string.ingredients_tab))
+        rootView.findNavController().navigate(action)
     }
 
     private fun onError(error: Error) {
