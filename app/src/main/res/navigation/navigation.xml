@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/nav_search">
+    app:startDestination="@id/search">
 
-    <fragment
-        android:id="@+id/nav_search"
-        android:name="com.example.cocktailtemplate.ui.search.SearchFragment"
-        android:label="@string/recherche_tab"
-        tools:layout="@layout/fragment_search" />
+    <include app:graph="@navigation/search"/>
+    <include app:graph="@navigation/categories"/>
+    <include app:graph="@navigation/ingredients"/>
 
-    <fragment
-        android:id="@+id/nav_categories"
-        android:name="com.example.cocktailtemplate.ui.categories.CategoriesFragment"
-        android:label="@string/categories_tab"
-        tools:layout="@layout/fragment_categories" />
-
-    <fragment
-        android:id="@+id/nav_ingredients"
-        android:name="com.example.cocktailtemplate.ui.ingredients.IngredientsFragment"
-        android:label="@string/ingredients_tab"
-        tools:layout="@layout/fragment_ingredients" />
 
 </navigation>

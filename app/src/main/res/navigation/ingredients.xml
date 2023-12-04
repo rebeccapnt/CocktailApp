@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/nav_ingredients"
+    android:id="@+id/ingredients">
+
+    <fragment
+        android:id="@+id/nav_ingredients"
+        android:name="com.example.cocktailtemplate.ui.ingredients.IngredientsFragment"
+        android:label="@string/ingredients_tab"
+        tools:layout="@layout/fragment_ingredients" >
+        <action
+            android:id="@+id/action_nav_ingredients_to_nav_cocktail_list"
+            app:destination="@id/nav_cocktail_list" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_detail"
+        android:name="com.example.cocktailtemplate.ui.cocktaildetails.CocktailDetail"
+        tools:layout="@layout/fragment_cocktail_detail" >
+        <argument
+            android:name="cocktailId"
+            app:argType="integer"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_cocktail_list"
+        android:name="com.example.cocktailtemplate.ui.cocktail_list.CocktailList"
+        android:label="@string/ingredients_tab"
+        tools:layout="@layout/fragment_cocktail_list" >
+        <action
+            android:id="@+id/action_nav_cocktail_list_to_nav_detail"
+            app:destination="@id/nav_detail" />
+        <argument
+            android:name="endPoint"
+            app:argType="string" />
+        <argument
+            android:name="titleTopBar"
+            app:argType="string" />
+    </fragment>
+</navigation>

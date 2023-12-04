@@ -1,4 +1,4 @@
-package com.example.cocktailtemplate.ui.cocktaildetails
+package com.example.cocktailtemplate.ui.cocktail_list
 
 import android.os.Bundle
 import android.util.Log
@@ -6,17 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavArgs
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.cocktailtemplate.MainActivity
 import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
-import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
-import androidx.navigation.fragment.navArgs
-import com.example.cocktailtemplate.MainActivity
+import com.example.cocktailtemplate.databinding.FragmentCocktailListBinding
+import com.example.cocktailtemplate.ui.common.CocktailListAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,16 +24,20 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [CocktailDetail.newInstance] factory method to
+ * Use the [CocktailList.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CocktailDetail : Fragment() {
+class CocktailList : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private var _binding: FragmentCocktailDetailBinding? = null
+    private var _binding: FragmentCocktailListBinding? = null
     private val binding get() = _binding!!
-    private val args : CocktailDetailArgs by navArgs()
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: CocktailListAdapter
+    private lateinit var cocktailListView: View
+    private val args : CocktailListArgs by navArgs()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,47 +51,47 @@ class CocktailDetail : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment and update the image
-        _binding = FragmentCocktailDetailBinding.inflate(inflater, container, false)
-            
-        val rootView = binding.root
-        return rootView
+        // Inflate the layout for this fragment
+        _binding = FragmentCocktailListBinding.inflate(inflater, container, false)
+        recyclerView = binding.recyclerView
+        cocktailListView = binding.root
+        args.titleTopBar?.let { (requireActivity() as MainActivity).updateTitle(it) }
+        return cocktailListView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Fetcher.fetch("lookup.php?i=${args.cocktailId}", success = ::onSuccess, failure = ::onError)
+        Fetcher.fetch(args.endPoint, success = ::onSuccess, failure = ::onError)
     }
 
-    private fun onSuccess(cocktails : ApiResponse<Cocktail>) {
-        val cocktail = cocktails.list.get(0)
-        Log.i("Detail", "Get the following cocktail : ${cocktail.name}")
+    private fun onSuccess(cocktails: ApiResponse<Cocktail>) {
+        Log.i("Search", "Get the cocktail by search")
         requireActivity().runOnUiThread {
-            cocktail.name?.let { (requireActivity() as MainActivity).updateTitle(it) }
-            Picasso.get()
-                .load(cocktail.thumb)
-                .placeholder(binding.cocktailPhotoDetail.drawable)
-                .error(binding.cocktailPhotoDetail.drawable)
-                .into(binding.cocktailPhotoDetail)
-            binding.cocktailCategoryValue.text = cocktail.category
-            binding.cocktailGlassValue.text = cocktail.glass
-            binding.cocktailInstructionDetail.text = cocktail.instructions
-            var ingredients = ""
-            for (ingredient in cocktail.getIngredients()){
-                ingredients += "- $ingredient\n"
+            if (cocktails.list != null && cocktails.list.isNotEmpty()) {
+                recyclerView.visibility = View.VISIBLE
+
+                recyclerView.layoutManager = LinearLayoutManager(context)
+                adapter = CocktailListAdapter(requireContext(), cocktails.list, onClickListener = ::goToCocktailDetail)
+                recyclerView.adapter = adapter
+            } else {
+                recyclerView.visibility = View.GONE
             }
-            binding.cocktailIngredientsDetail.text = ingredients
         }
+    }
+    private fun goToCocktailDetail(cocktailId: Int) {
+        Log.i("cocktail-list","cocktail")
+        val action = CocktailListDirections.actionNavCocktailListToNavDetail(cocktailId)
+        cocktailListView.findNavController().navigate(action)
     }
 
     private fun onError(error: Error) {
         Log.e("Detail", "Error: ${error.message}")
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 
     companion object {
         /**
@@ -97,12 +100,12 @@ class CocktailDetail : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment CocktailDetail.
+         * @return A new instance of fragment CoktailList.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            CocktailDetail().apply {
+            CocktailList().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
