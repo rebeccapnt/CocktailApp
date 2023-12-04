@@ -59,7 +59,7 @@ class IngredientsFragment : Fragment() {
     }
 
     private fun goToCocktailList(name: String) {
-        val action = IngredientsFragmentDirections.actionNavIngredientsToNavCocktailList("filter.php?i=$name")
+        val action = IngredientsFragmentDirections.actionNavIngredientsToNavCocktailList("filter.php?i=$name", requireContext().getString(R.string.ingredients_tab))
         rootView.findNavController().navigate(action)
     }
 

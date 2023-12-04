@@ -40,5 +40,8 @@
         <argument
             android:name="endPoint"
             app:argType="string" />
+        <argument
+            android:name="titleTopBar"
+            app:argType="string" />
     </fragment>
 </navigation>

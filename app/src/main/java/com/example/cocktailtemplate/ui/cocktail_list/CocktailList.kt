@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cocktailtemplate.MainActivity
 import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
@@ -58,6 +59,7 @@ class CocktailList : Fragment() {
         _binding = FragmentCocktailListBinding.inflate(inflater, container, false)
         recyclerView = binding.recyclerView
         cocktailListView = binding.root
+        args.titleTopBar?.let { (requireActivity() as MainActivity).updateTitle(it) }
         return cocktailListView
     }
 

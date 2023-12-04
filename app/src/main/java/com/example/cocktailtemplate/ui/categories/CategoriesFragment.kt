@@ -54,7 +54,7 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun goToCocktailList(name: String) {
-        val action = CategoriesFragmentDirections.actionNavCategoriesToNavCocktailList("filter.php?c=$name")
+        val action = CategoriesFragmentDirections.actionNavCategoriesToNavCocktailList("filter.php?c=$name", requireContext().getString(R.string.categories_tab))
         rootView.findNavController().navigate(action)
     }
 
