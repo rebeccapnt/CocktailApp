@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailtemplate.R
@@ -15,6 +16,7 @@ import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
 import com.example.cocktailtemplate.databinding.FragmentCocktailListBinding
+import com.example.cocktailtemplate.ui.cocktaildetails.CocktailDetailArgs
 import com.example.cocktailtemplate.ui.search.SearchAdapter
 import com.example.cocktailtemplate.ui.search.SearchFragmentDirections
 
@@ -36,6 +38,8 @@ class CocktailList : Fragment() {
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SearchAdapter
+    private lateinit var cocktailListView: View
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,8 +56,8 @@ class CocktailList : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentCocktailListBinding.inflate(inflater, container, false)
         recyclerView = binding.recyclerView
-        val rootView = binding.root
-        return rootView
+        cocktailListView = binding.root
+        return cocktailListView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,9 +80,9 @@ class CocktailList : Fragment() {
         }
     }
     private fun goToCocktailDetail(cocktailId: Int) {
-        Log.i("cocktail-list","coktail")
-        //val action = SearchFragmentDirections.actionNavSearchToNavDetail(cocktailId)
-        //searchView.findNavController().navigate(action)
+        Log.i("cocktail-list","cocktail")
+        val action = CocktailListDirections.actionNavCocktailListToNavDetail(cocktailId)
+        cocktailListView.findNavController().navigate(action)
     }
 
     private fun onError(error: Error) {

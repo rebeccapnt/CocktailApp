@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_categories"
-        android:name="com.example.cocktailtemplate.ui.cocktail_list.CocktailList"
+        android:name="com.example.cocktailtemplate.ui.categories.CategoriesFragment"
         android:label="@string/categories_tab"
         tools:layout="@layout/fragment_categories" />
 
@@ -37,6 +37,16 @@
             android:name="cocktailId"
             app:argType="integer"
             />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_cocktail_list"
+        android:name="com.example.cocktailtemplate.ui.cocktail_list.CocktailList"
+        android:label="@string/ingredients_tab"
+        tools:layout="@layout/fragment_cocktail_list" >
+        <action
+            android:id="@+id/action_nav_cocktail_list_to_nav_detail"
+            app:destination="@id/nav_detail" />
     </fragment>
 
 </navigation>
