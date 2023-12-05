@@ -20,6 +20,7 @@ import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentCategoriesBinding
 import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
 import com.example.cocktailtemplate.ui.common.GenericAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -47,6 +48,20 @@ class CategoriesFragment : Fragment() {
         return rootView
     }
 
+    private fun onNetworkCallError() {
+        Log.i("NetworkCallError", "onNetworkCallError")
+        activity?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle(getString(R.string.title_error))
+                .setMessage(R.string.message_error)
+                .setPositiveButton(R.string.retry_error) { _, _ ->
+                    Log.i("NetworkCallError", "Again")
+                    Fetcher.fetch("list.php?c=list", success = ::onSuccess, failure = ::onError)
+                }
+                .show()
+        }
+    }
+
     private fun onSuccess(categories : ApiResponse<Category>) {
         Log.i("Categories", "Get the categories")
         val categoryItems = arrayListOf<Item>()
@@ -68,7 +83,11 @@ class CategoriesFragment : Fragment() {
 
 
     private fun onError(error: Error) {
-        Log.e("Categories", "Error: ${error.message}")
+        Log.e("Detail", "Error: ${error.message}")
+        (requireActivity() as MainActivity).runOnUiThread {
+            (requireActivity() as MainActivity).disableProgressBar()
+            onNetworkCallError()
+        }
     }
 
     override fun onDestroyView() {
