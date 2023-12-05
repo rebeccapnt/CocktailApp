@@ -13,11 +13,13 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailtemplate.MainActivity
+import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentSearchBinding
 import com.example.cocktailtemplate.ui.cocktailList.CocktailListAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -29,6 +31,7 @@ class SearchFragment : Fragment() {
     private lateinit var searchList: ArrayList<Cocktail>
     private lateinit var errorMessage: TextView
     private lateinit var searchView: SearchView
+    private lateinit var lastQuery: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,9 +58,26 @@ class SearchFragment : Fragment() {
         return rootView
     }
 
+    private fun onNetworkCallError() {
+        Log.i("NetworkCallError", "onNetworkCallError")
+        activity?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle(getString(R.string.title_error))
+                .setMessage(R.string.message_error)
+                .setPositiveButton(R.string.retry_error) { _, _ ->
+                    Log.i("NetworkCallError", "Again")
+                    performSearch(lastQuery)
+                }
+                .show()
+        }
+    }
+
     private fun performSearch(query: String?) {
         lifecycleScope.launch {
             (requireActivity() as MainActivity).enableProgressBar()
+            if (query != null) {
+                lastQuery = query
+            }
             Fetcher.fetch("search.php?s=$query", success = ::onSuccess, failure = ::onError)
         }
     }
@@ -84,9 +104,13 @@ class SearchFragment : Fragment() {
         searchView.findNavController().navigate(action)
     }
     private fun onError(error: Error) {
-        (requireActivity() as MainActivity).disableProgressBar()
-        Log.e("Search", "Error: ${error.message}")
+        Log.e("Detail", "Error: ${error.message}")
+        (requireActivity() as MainActivity).runOnUiThread {
+            (requireActivity() as MainActivity).disableProgressBar()
+            onNetworkCallError()
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
