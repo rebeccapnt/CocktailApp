@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.cocktailtemplate.MainActivity
+import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -44,27 +46,39 @@ class CocktailDetail : Fragment() {
         }
     }
 
+    private fun onNetworkCallError() {
+        Log.i("NetworkCallError", "onNetworkCallError")
+        activity?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle(getString(R.string.title_error))
+                .setMessage(R.string.message_error)
+                .setPositiveButton(R.string.retry_error) { _, _ ->
+                    Log.i("NetworkCallError", "Again")
+                    Fetcher.fetch("lookup.php?i=${args.cocktailId}", success = ::onSuccess, failure = ::onError)
+                }
+                .show()
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment and update the image
         _binding = FragmentCocktailDetailBinding.inflate(inflater, container, false)
-            
+
         val rootView = binding.root
         return rootView
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onStart() {
         super.onStart()
         (requireActivity() as MainActivity).enableProgressBar()
         lifecycleScope.launch {
-            delay(3000) //TODO : Delete
-            Fetcher.fetch("lookup.php?i=${args.cocktailId}", success = ::onSuccess, failure = ::onError)
+            Fetcher.fetch(
+                "lookup.php?i=${args.cocktailId}",
+                success = ::onSuccess,
+                failure = ::onError
+            )
         }
     }
 
@@ -91,7 +105,12 @@ class CocktailDetail : Fragment() {
 
     private fun onError(error: Error) {
         Log.e("Detail", "Error: ${error.message}")
+        (requireActivity() as MainActivity).runOnUiThread {
+            (requireActivity() as MainActivity).disableProgressBar()
+            onNetworkCallError()
+        }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

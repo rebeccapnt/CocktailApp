@@ -12,4 +12,7 @@
     <string name="search_view_placeholder">Rechercher...</string>
     <string name="no_cocktail_found">Aucun cocktail trouvé...</string>
     <string name="cocktail_name">{cocktailName}</string>
+    <string name="title_error">Erreur</string>
+    <string name="message_error">Une erreur s\'est produite.</string>
+    <string name="retry_error">Réessayer</string>
 </resources>
