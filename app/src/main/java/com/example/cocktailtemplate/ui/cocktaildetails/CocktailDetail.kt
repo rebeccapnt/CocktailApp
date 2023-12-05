@@ -2,21 +2,24 @@ package com.example.cocktailtemplate.ui.cocktaildetails
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavArgs
+import android.widget.ProgressBar
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.example.cocktailtemplate.MainActivity
 import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import androidx.navigation.fragment.navArgs
-import com.example.cocktailtemplate.MainActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.lang.Exception
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,7 +60,15 @@ class CocktailDetail : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Fetcher.fetch("lookup.php?i=${args.cocktailId}", success = ::onSuccess, failure = ::onError)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (requireActivity() as MainActivity).enableProgressBar()
+        lifecycleScope.launch {
+            delay(3000) //TODO : Delete
+            Fetcher.fetch("lookup.php?i=${args.cocktailId}", success = ::onSuccess, failure = ::onError)
+        }
     }
 
     private fun onSuccess(cocktails : ApiResponse<Cocktail>) {
@@ -67,7 +78,6 @@ class CocktailDetail : Fragment() {
             cocktail.name?.let { (requireActivity() as MainActivity).updateTitle(it) }
             Picasso.get()
                 .load(cocktail.thumb)
-                .placeholder(binding.cocktailPhotoDetail.drawable)
                 .error(binding.cocktailPhotoDetail.drawable)
                 .into(binding.cocktailPhotoDetail)
             binding.cocktailCategoryValue.text = cocktail.category
@@ -78,6 +88,7 @@ class CocktailDetail : Fragment() {
                 ingredients += "- $ingredient\n"
             }
             binding.cocktailIngredientsDetail.text = ingredients
+            (requireActivity() as MainActivity).disableProgressBar()
         }
     }
 

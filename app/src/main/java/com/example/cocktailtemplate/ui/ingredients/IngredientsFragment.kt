@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cocktailtemplate.MainActivity
 import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Category
@@ -22,6 +24,8 @@ import com.example.cocktailtemplate.databinding.FragmentIngredientsBinding
 import com.example.cocktailtemplate.ui.categories.CategoriesFragmentDirections
 import com.example.cocktailtemplate.ui.common.GenericAdapter
 import com.example.cocktailtemplate.ui.search.SearchFragmentDirections
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class IngredientsFragment : Fragment() {
 
@@ -39,9 +43,17 @@ class IngredientsFragment : Fragment() {
         _binding = FragmentIngredientsBinding.inflate(inflater, container, false)
         rootView = binding.root
 
-        Fetcher.fetch("list.php?i=list", success = ::onSuccess, failure = ::onError)
-
         return rootView
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (requireActivity() as MainActivity).enableProgressBar()
+        lifecycleScope.launch {
+            delay(3000) //TODO : Delete
+            Fetcher.fetch("list.php?i=list", success = ::onSuccess, failure = ::onError)
+            (requireActivity() as MainActivity).disableProgressBar()
+        }
     }
 
     private fun onSuccess(ingredients : ApiResponse<Ingredient>) {
