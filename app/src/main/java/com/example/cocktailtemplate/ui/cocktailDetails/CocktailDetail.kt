@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.cocktailtemplate.MainActivity
+import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
@@ -49,12 +50,11 @@ class CocktailDetail : Fragment() {
         Log.i("NetworkCallError", "onNetworkCallError")
         activity?.let {
             MaterialAlertDialogBuilder(it)
-                .setTitle("Erreur")
-                .setMessage("Une erreur s'est produite.")
-                .setPositiveButton("Réessayer") { _, _ ->
+                .setTitle(getString(R.string.title_error))
+                .setMessage(R.string.message_error)
+                .setPositiveButton(R.string.retry_error) { _, _ ->
                     Log.i("NetworkCallError", "Again")
                     Fetcher.fetch("lookup.php?i=${args.cocktailId}", success = ::onSuccess, failure = ::onError)
-
                 }
                 .show()
         }
