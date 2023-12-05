@@ -8,14 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cocktailtemplate.MainActivity
 import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentSearchBinding
-import com.example.cocktailtemplate.ui.common.CocktailListAdapter
+import com.example.cocktailtemplate.ui.cocktailList.CocktailListAdapter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
@@ -52,22 +56,26 @@ class SearchFragment : Fragment() {
     }
 
     private fun performSearch(query: String?) {
-        Fetcher.fetch("search.php?s=$query", success = ::onSuccess, failure = ::onError)
+        lifecycleScope.launch {
+            (requireActivity() as MainActivity).enableProgressBar()
+            Fetcher.fetch("search.php?s=$query", success = ::onSuccess, failure = ::onError)
+        }
     }
 
     private fun onSuccess(cocktails: ApiResponse<Cocktail>) {
         Log.i("Search", "Get the cocktail by search")
         requireActivity().runOnUiThread {
+            (requireActivity() as MainActivity).disableProgressBar()
             if (cocktails.list != null && cocktails.list.isNotEmpty()) {
                 recyclerView.visibility = View.VISIBLE
-                binding.errorLayout.visibility = View.GONE
+                binding.emptySearch.visibility = View.GONE
 
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 adapter = CocktailListAdapter(requireContext(), cocktails.list, onClickListener = ::goToCocktailDetail)
                 recyclerView.adapter = adapter
             } else {
                 recyclerView.visibility = View.GONE
-                binding.errorLayout.visibility = View.VISIBLE
+                binding.emptySearch.visibility = View.VISIBLE
             }
         }
     }
@@ -76,6 +84,7 @@ class SearchFragment : Fragment() {
         searchView.findNavController().navigate(action)
     }
     private fun onError(error: Error) {
+        (requireActivity() as MainActivity).disableProgressBar()
         Log.e("Search", "Error: ${error.message}")
     }
 

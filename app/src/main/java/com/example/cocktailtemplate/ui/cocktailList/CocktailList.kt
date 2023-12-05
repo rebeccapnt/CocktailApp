@@ -1,4 +1,4 @@
-package com.example.cocktailtemplate.ui.cocktail_list
+package com.example.cocktailtemplate.ui.cocktailList
 
 import android.os.Bundle
 import android.util.Log
@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +16,8 @@ import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentCocktailListBinding
-import com.example.cocktailtemplate.ui.common.CocktailListAdapter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,7 +63,11 @@ class CocktailList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Fetcher.fetch(args.endPoint, success = ::onSuccess, failure = ::onError)
+        (requireActivity() as MainActivity).enableProgressBar()
+        lifecycleScope.launch {
+            Fetcher.fetch(args.endPoint, success = ::onSuccess, failure = ::onError)
+            (requireActivity() as MainActivity).disableProgressBar()
+        }
     }
 
     private fun onSuccess(cocktails: ApiResponse<Cocktail>) {

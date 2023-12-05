@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        progressIndicator = binding.progressIndicator
         val view = binding.root
         setContentView(view)
 
@@ -35,8 +36,6 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.toolbar.title = destination.label
         }
-
-        progressIndicator = binding.progressIndicator
 
         bottomNav = binding.bottomNav
         bottomNav.setupWithNavController(navController)

@@ -1,11 +1,10 @@
-package com.example.cocktailtemplate.ui.cocktaildetails
+package com.example.cocktailtemplate.ui.cocktailDetails
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -14,11 +13,9 @@ import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
-import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 
 // TODO: Rename parameter arguments, choose names that match

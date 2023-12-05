@@ -21,7 +21,7 @@
     </androidx.appcompat.widget.SearchView>
 
     <LinearLayout
-        android:id="@+id/errorLayout"
+        android:id="@+id/emptySearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

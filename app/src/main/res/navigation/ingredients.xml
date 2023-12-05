@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/nav_detail"
-        android:name="com.example.cocktailtemplate.ui.cocktaildetails.CocktailDetail"
+        android:name="com.example.cocktailtemplate.ui.cocktailDetails.CocktailDetail"
         tools:layout="@layout/fragment_cocktail_detail" >
         <argument
             android:name="cocktailId"
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/nav_cocktail_list"
-        android:name="com.example.cocktailtemplate.ui.cocktail_list.CocktailList"
+        android:name="com.example.cocktailtemplate.ui.cocktailList.CocktailList"
         android:label="@string/ingredients_tab"
         tools:layout="@layout/fragment_cocktail_list" >
         <action

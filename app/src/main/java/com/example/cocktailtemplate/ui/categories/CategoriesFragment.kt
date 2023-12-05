@@ -40,7 +40,6 @@ class CategoriesFragment : Fragment() {
 
         (requireActivity() as MainActivity).enableProgressBar()
         lifecycleScope.launch {
-            delay(3000) //TODO : Delete
             Fetcher.fetch("list.php?c=list", success = ::onSuccess, failure = ::onError)
             (requireActivity() as MainActivity).disableProgressBar()
         }
