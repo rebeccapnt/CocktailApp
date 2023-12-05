@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.cocktaildetails.CocktailDetail">
+    tools:context=".ui.cocktailDetails.CocktailDetail">
 
     <ImageView
         android:id="@+id/cocktail_photo_detail"

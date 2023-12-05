@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cocktailtemplate.MainActivity
 import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Category
@@ -19,6 +21,8 @@ import com.example.cocktailtemplate.databinding.FragmentCategoriesBinding
 import com.example.cocktailtemplate.databinding.FragmentCocktailDetailBinding
 import com.example.cocktailtemplate.ui.common.GenericAdapter
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class CategoriesFragment : Fragment() {
     private var _binding: FragmentCategoriesBinding? = null
@@ -34,7 +38,11 @@ class CategoriesFragment : Fragment() {
         _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
         rootView = binding.root
 
-        Fetcher.fetch("list.php?c=list", success = ::onSuccess, failure = ::onError)
+        (requireActivity() as MainActivity).enableProgressBar()
+        lifecycleScope.launch {
+            Fetcher.fetch("list.php?c=list", success = ::onSuccess, failure = ::onError)
+            (requireActivity() as MainActivity).disableProgressBar()
+        }
 
         return rootView
     }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.cocktaildetails.CocktailActivity">
+    tools:context=".ui.cocktailDetails.CocktailActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
 
         <fragment
             android:id="@+id/cocktailDetailFragment"
-            android:name="com.example.cocktailtemplate.ui.cocktaildetails.CocktailDetail"
+            android:name="com.example.cocktailtemplate.ui.cocktailDetails.CocktailDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"

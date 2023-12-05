@@ -1,26 +1,31 @@
 package com.example.cocktailtemplate
 
 import android.os.Bundle
-import android.view.Gravity
+import android.util.Log
 import android.view.View
-import android.widget.TextView
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.cocktailtemplate.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var bottomNav: BottomNavigationView
     private lateinit var navController: NavController
+    private lateinit var progressIndicator: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        progressIndicator = binding.progressIndicator
         val view = binding.root
         setContentView(view)
 
@@ -41,5 +46,17 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null) || super.onSupportNavigateUp()
+    }
+
+    fun enableProgressBar() {
+        Log.i("Main Activity", "Enable progressBar")
+        progressIndicator.visibility = View.VISIBLE
+        binding.nestedScrollView.visibility = View.GONE
+    }
+
+    fun disableProgressBar() {
+        Log.i("Main Activity", "Disable progressBar")
+        progressIndicator.visibility = View.GONE
+        binding.nestedScrollView.visibility = View.VISIBLE
     }
 }

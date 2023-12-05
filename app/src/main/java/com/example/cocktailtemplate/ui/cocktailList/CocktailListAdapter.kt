@@ -1,4 +1,4 @@
-package com.example.cocktailtemplate.ui.common
+package com.example.cocktailtemplate.ui.cocktailList
 
 import android.content.Context
 import android.util.Log
@@ -41,7 +41,6 @@ class CocktailListAdapter(val context: Context, private val cocktails: List<Cock
         holder.cocktailName.text = cocktail.name
         Picasso.get()
             .load(cocktail.thumb)
-            .placeholder(R.drawable.image_not_load)
             .error(R.drawable.image_not_load)
             .into(holder.cocktailImage)
     }
