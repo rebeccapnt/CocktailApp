@@ -12,10 +12,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailtemplate.MainActivity
+import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.ApiResponse
 import com.example.cocktailtemplate.core.model.Cocktail
 import com.example.cocktailtemplate.core.service.Fetcher
 import com.example.cocktailtemplate.databinding.FragmentCocktailListBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -46,6 +48,20 @@ class CocktailList : Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    private fun onNetworkCallError() {
+        Log.i("NetworkCallError", "onNetworkCallError")
+        activity?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle(getString(R.string.title_error))
+                .setMessage(R.string.message_error)
+                .setPositiveButton(R.string.retry_error) { _, _ ->
+                    Log.i("NetworkCallError", "Again")
+                    Fetcher.fetch(args.endPoint, success = ::onSuccess, failure = ::onError)
+                }
+                .show()
         }
     }
 
@@ -92,6 +108,10 @@ class CocktailList : Fragment() {
 
     private fun onError(error: Error) {
         Log.e("Detail", "Error: ${error.message}")
+        (requireActivity() as MainActivity).runOnUiThread {
+            (requireActivity() as MainActivity).disableProgressBar()
+            onNetworkCallError()
+        }
     }
 
     override fun onDestroyView() {
