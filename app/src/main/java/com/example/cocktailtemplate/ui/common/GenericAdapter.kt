@@ -10,18 +10,25 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cocktailtemplate.R
 import com.example.cocktailtemplate.core.model.Item
+import com.example.cocktailtemplate.databinding.ItemGenericBinding
 
 class GenericAdapter(val context: Context, private val items: List<Item>, private val onClickListener: (name: String) -> Unit) :
     RecyclerView.Adapter<GenericAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val itemContainer: RelativeLayout = view.findViewById(R.id.itemContainer)
-        val itemTextView: TextView = view.findViewById(R.id.itemTextView)
+    class ViewHolder(private val binding: ItemGenericBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Item, onClickListener: (name: String) -> Unit) {
+            binding.itemTextView.text = item.name
+            binding.itemContainer.setOnClickListener {
+                Log.i("Search", "click ${item.name}")
+                item.name?.let { it1 -> onClickListener(it1) }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(context).inflate(R.layout.item_generic, parent, false)
-        return ViewHolder(itemView)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemGenericBinding.inflate(inflater, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -30,10 +37,6 @@ class GenericAdapter(val context: Context, private val items: List<Item>, privat
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.itemTextView.text = item.name
-        holder.itemContainer.setOnClickListener {
-            Log.i("Search", "click ${item.name}")
-            item.name?.let { it1 -> onClickListener(it1) }
-        }
+        holder.bind(item, onClickListener)
     }
 }
