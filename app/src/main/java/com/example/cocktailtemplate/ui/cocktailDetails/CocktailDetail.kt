@@ -50,7 +50,7 @@ class CocktailDetail : Fragment() {
         Log.i("NetworkCallError", "onNetworkCallError")
         activity?.let {
             MaterialAlertDialogBuilder(it)
-                .setTitle(getString(R.string.title_error))
+                .setTitle(R.string.title_error)
                 .setMessage(R.string.message_error)
                 .setPositiveButton(R.string.retry_error) { _, _ ->
                     Log.i("NetworkCallError", "Again")
