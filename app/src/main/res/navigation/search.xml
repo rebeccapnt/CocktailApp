@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/nav_search"
         android:name="com.example.cocktailtemplate.ui.search.SearchFragment"
-        android:label="@string/recherche_tab"
+        android:label="@string/search_tab"
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_nav_search_to_nav_detail"
