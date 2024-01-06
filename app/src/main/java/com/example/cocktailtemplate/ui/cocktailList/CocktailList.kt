@@ -73,7 +73,7 @@ class CocktailList : Fragment() {
         _binding = FragmentCocktailListBinding.inflate(inflater, container, false)
         recyclerView = binding.recyclerView
         cocktailListView = binding.root
-        args.titleTopBar?.let { (requireActivity() as MainActivity).updateTitle(it) }
+        args.titleTopBar.let { (requireActivity() as MainActivity).updateTitle(it) }
         return cocktailListView
     }
 
@@ -89,7 +89,7 @@ class CocktailList : Fragment() {
     private fun onSuccess(cocktails: ApiResponse<Cocktail>) {
         Log.i("Search", "Get the cocktail by search")
         requireActivity().runOnUiThread {
-            if (cocktails.list != null && cocktails.list.isNotEmpty()) {
+            if (cocktails.list.isNotEmpty()) {
                 recyclerView.visibility = View.VISIBLE
 
                 recyclerView.layoutManager = LinearLayoutManager(context)
