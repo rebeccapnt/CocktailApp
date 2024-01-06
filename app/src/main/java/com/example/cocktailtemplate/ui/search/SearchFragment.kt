@@ -86,7 +86,7 @@ class SearchFragment : Fragment() {
         Log.i("Search", "Get the cocktail by search")
         requireActivity().runOnUiThread {
             (requireActivity() as MainActivity).disableProgressBar()
-            if (cocktails.list != null && cocktails.list.isNotEmpty()) {
+            if (cocktails.list.isNotEmpty()) {
                 recyclerView.visibility = View.VISIBLE
                 binding.emptySearch.visibility = View.GONE
 
