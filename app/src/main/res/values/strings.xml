@@ -5,14 +5,14 @@
     <string name="cocktail_category">Category:</string>
     <string name="cocktail_glass">Served in:</string>
     <string name="cocktail_instructions">Instructions:</string>
-    <string name="cocktail_ingredients">Ingrédients:</string>
-    <string name="recherche_tab">Recherche</string>
-    <string name="categories_tab">Catégories</string>
-    <string name="ingredients_tab">Ingrédients</string>
-    <string name="search_view_placeholder">Rechercher...</string>
-    <string name="no_cocktail_found">Aucun cocktail trouvé...</string>
+    <string name="cocktail_ingredients">Ingredients:</string>
+    <string name="search_tab">Search</string>
+    <string name="categories_tab">Categories</string>
+    <string name="ingredients_tab">Ingredients</string>
+    <string name="search_view_placeholder">Search...</string>
+    <string name="no_cocktail_found">No cocktail found...</string>
     <string name="cocktail_name">{cocktailName}</string>
-    <string name="title_error">Erreur</string>
-    <string name="message_error">Une erreur s\'est produite.</string>
-    <string name="retry_error">Réessayer</string>
+    <string name="title_error">Error</string>
+    <string name="message_error">An error occurred.</string>
+    <string name="retry_error">Retry</string>
 </resources>
